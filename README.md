@@ -1,85 +1,69 @@
-# Pool构建与维护
+# Why Indie Games Need Localization
 
-## 构建原则：按照“并发峰值”定规模
+**Indie games lose players when translation stops at semantics. Non-English localization is really constrained re-creation.**
 
-此次PE与LQA编辑人员数目 **“单个项目在最短交付窗口内，单个语种需要同时上线多少人”** 来进行测算。
+A while ago on Reddit, an indie developer shared a screenshot of his game’s German reviews. They were almost entirely one-star, and the feedback was strikingly consistent: *the translation read like it came straight out of Google Translate.*
 
-### 考虑变量
+Frustrated, he replied that he had used crowdsourced translators and native-speaking players to review it. How had it still turned out so badly? Many developers chimed in with similar stories.
 
-**单项目单语种的文本量（字数/字符数）**
+It’s a familiar story. When indie teams handle localization, they usually choose one of two paths:
 
-根据过往Nomori, 绯月杀以及Song of Kings项目，字数约在10,000-15,000字左右。
+1. **Crowdsourcing** — community volunteers or freelance translators on platforms like Fiverr.
+2. **Machine translation** with a quick manual polish.
 
-**PE编辑人员的日均产能**
+Both paths usually lead to the same result: the text is technically understandable, but awkward to read. And players immediately recognize it as a lack of care.
 
-一名熟练的自由译者日均处理量通常在 **2,500–4,000词** 左右，具体取决于文本复杂度、CAT工具效率和术语库完善程度。因此，如果项目要求48小时内交付，那么单语种至少需要：
+---
 
-> **单语种PE需求人数 = 总字数 ÷ （2,500 × 可用工作日数）**
+## The Real Scale of the Opportunity
 
-**LQA测试人员的并行需求**
+Let’s look at the numbers. According to data Valve shared at the 2025 Gamescom Developer Conference, **67% of Steam users use a non-English client language**. Simplified Chinese alone accounts for **33.6%**—surpassing English (33%) as the largest language group on the platform. Meanwhile, markets like Japan, Brazil, China, Germany, and the U.S. are among Steam’s fastest-growing markets.  
+*[Source: Valve, 2025 Gamescom Developer Conference — insert link]*
 
-LQA需要实际进游戏逐条验证，效率受限于游戏可玩性、bug复现难度和版本稳定性。对于目前承接的项目大小，单语种 **1–2名LQA测试人员** 是一个合理的起步配置。
+If an indie game only supports English—or offers a half-baked translation for non-English languages—it voluntarily surrenders more than half of its potential market. And these aren’t just passive browsers; they represent large, active player bases.
 
-### 初期Pool大小
+---
 
-结合以上变量，初期的**pool基准**可以考虑：
+## Why Non-English Localization Fails
 
-| 角色 | 单语种Pool建议 | 说明 |
-|---|---|---|
-| **PE编辑** | **2-3人** | 目前阶段确保至少2人可同时处理一个项目，并确保余出1人紧急储备 |
-| **LQA测试人员** | **2人** | 覆盖一个项目的并行测试需求，同时预留额外需求空间 |
-| **合计/语种** | **4-5人** | 三语种种子池合计约 **12–15人** |
+The opportunity is massive, but the execution is notoriously difficult. English localization goes wrong often enough—let alone languages like Japanese, Korean, or German, which have vastly different linguistic structures and cultural nuances.
 
-如果同时承接两个项目，可根据需要将池子按比例扩大到1.5–2倍，或在人才获取渠道中获取可快速加入项目的候选人。
+The real hurdles aren’t vocabulary. They’re deeper structural challenges:
 
-## 人才获取
+### 1. Tone and Character Identity Consistency
 
-### 分层获取渠道
+Game characters speak with distinct personalities. A tsundere companion, a stern general, and a comedic NPC might use the same language, but their speech patterns are fundamentally different. Generic translation tools process word meaning sentence by sentence; they often struggle to track *who* is speaking or preserve character identity across an entire script. Crowdsourced translators *can* theoretically do this, but because work is distributed—Translator A takes Chapter 1, Translator B takes Chapter 3—tone becomes fragmented. The final game feels like it was written by multiple different people.
 
-**Tier1：核心层（长期稳定合作）**
+### 2. Cultural References, Humor, and Puns
 
-核心层包含**反复合作、质量可控、响应及时**的自由译者或小型团队，通常以 **转介和定向挖掘** 为主：
-- 从合作过的译者中筛选表现优异者，主动邀请进入pool
-- 通过发行商或同行推荐获取可信候选人
-- 在游戏本地化行业会议（如LocWorld、GDC）的社交场合建立直接联系
+A pun or wordplay-based joke that works in English usually crumbles when translated literally into Japanese. It requires **transcreation**—rewriting the line so it delivers the same humor within the target cultural context. This isn’t something you can look up in a dictionary, and machine translation tools generally lack the cultural sensitivity to pull it off.
 
-**Tier2：弹性/外包层**
+### 3. Platform Standards and Regional Nuances
 
-弹性层主要应对项目高峰和核心层不可用等紧急情况。获取渠道包括：
-- **ProZ.com**：全球最大的自由译者社区，有专门的游戏本地化招聘板块，经常有日语、韩语、俄语的游戏本地化岗位发布。ProZ还提供了 **PortaRecruit** 平台，专门用于多语言游戏本地化招聘，支持从测试到签约的全流程管理。
-- **51找翻译**：中国国内语言服务平台，有大量日语、韩语、俄语的游戏本地化兼职岗位，适合获取中文→目标语言方向的自由译者。
-- **TranslatorsCafe**：笔译员，口译员和翻译公司的名册网站，可联系注册过的国际范围内的译员。
+Stores and regional markets have strict guidelines regarding text length, UI overflow, and sensitive or banned terms. Even between Simplified and Traditional Chinese, the differences go far beyond character sets—word choices, terminology, and phrasing habits vary significantly. Missteps here are costly. Once players screenshot a bizarre UI bug or bad translation and mock it on social media, that negative impression is nearly impossible to patch away.
 
-### 注意
-- 日本自由译者对长期合作的稳定性要求较高，建议以“持续提供项目”而非“单次项目”为切入点沟通。
-- 韩语游戏本地化市场相对集中，头部LSP（如Keywords、TransPerfect）占据了大量优质自由译者资源，初创团队需要通过**更灵活的合作条款**（如更快的付款周期、更清晰的术语支持）来建立吸引力。
-- 俄语译者对术语一致性和风格指南的依赖度较高，在测试阶段应重点考察其**在无完整术语库条件下的判断能力**。
+### 4. Consistency in Live Operations
 
+Localization isn’t a one-and-done task. Post-launch updates, DLC, and seasonal events require new content to match existing lore and terminology. Without a centralized glossary and translation memory (TM), every update becomes an isolated translation exercise. When a skill name changes arbitrarily between patches, players notice—and they will call you out on it.
 
-## Pool长期维护
+---
 
-### 建立结构化的资源档案
+## Localization Beyond Semantics
 
-每个进入种子层和弹性层的候选人，都应记录以下信息，并集中管理：
+All of these challenges point to one conclusion: **localization isn’t simply converting sentences from Language A to Language B.**
 
-| 字段 | 说明 |
-|---|---|
-| 语种/角色 | 日语PE / 韩语LQA / 俄语PE+LQA等 |
-| 合作状态 | 活跃 / 待激活 / 观察中 / 已退出 |
-| 质量评分 | 基于过往项目的PE编辑率、LQA bug发现率等 |
-| 可用性 | 当前负载、预计可接单时间 |
-| 费率 | 词价或时薪，便于快速报价 |
-| NDA/MSA状态 | 是否已签署保密协议和主服务协议 |
+It is closer to **constrained creative writing**—where the constraints are character identity, cultural context, platform guidelines, and historical version consistency. Generic translation tools typically only solve the bottom layer: semantic conversion. The real barrier to entry in game localization lies in every layer *above* that.
 
-> 建议有明确的负责人负责合作译者pool，并定期审查和更新信息。
+At **Orbit8 Lab**, our approach is to decouple these layers rather than expecting a single model to solve everything end-to-end.
 
-### 用设立指标驱动维护
+For instance, we first analyze *who* is speaking and *what* the context is before determining tone and phrasing. Terminology and version consistency are governed by dynamic glossaries and translation memories, rather than being regenerated from scratch each time.
 
-目前阶段资源池的核心管理指标应围绕 **质量、效率、成本** 三个维度：
+Essentially, this approach fills the contextual gap left by general-purpose large language models. We’ll share more about how we structure and train these layers later—this is currently where we invest most of our R&D.
 
-- **PE编辑率**：MT输出经过PE编辑后，被修改的比例。编辑率过高说明MT质量或术语库需要优化，也可能说明该译者的PE风格过于激进。
-- **LQA bug发现率**：每千字或每轮测试中发现的本地化问题数量。过低可能意味着测试不够深入，过高则可能说明PE阶段遗留问题较多。
-- **准时交付率**：是否影响与客户合作时的承诺。
-- **返工率**：交付后被发行商或内部审核退回修改的比例。
+---
 
-> 建议**每季度做一次资源池Review**，淘汰连续两个项目质量不达标的成员，同时从储备层中激活表现积极的候选人。
+## The Bottom Line for Indie Developers
+
+If you’re an indie team deciding whether localization deserves a real budget, ask yourself one question: **What percentage of your target audience speaks something other than English?**
+
+If that number is significant, the cost of lost sales and negative reviews from poor localization will far outweigh the money you saved on translation.
